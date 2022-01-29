@@ -17,20 +17,29 @@ import logging
 
 ########## Global variables ##########
 
+# scatter plot vars
 X = [0]
 Y = [0]
+
+# barchart vars
 prox_sensor_names = ['Left-Left', 'Left', 'Center', 'Right', 'Right-Right']
-line_sensor_values = [0, 0, 0, 0, 0]
+line_sensor_values = [0] * 5
+
+# direction discovery vars
 clockwise_arr = [0] * 100
 counter_clockwise_arr = [0] * 100
 counter = 0
+
+# joystick vars
 zumoAngle = 0
 zumoSpeed = 0
+
+# button vars
 auto_flag = 0
 
 ########## Serial Connection ##########
 
-ser = serial.Serial('/dev/ttyACM0')  # open serial port
+#ser = serial.Serial('/dev/ttyACM0')  # open serial port
 #ser = serial.Serial('COM3', baudrate = 9600, timeout = 1)
 
 # App Initialization and definition
@@ -50,6 +59,7 @@ app.layout = html.Div(children=[daq.Joystick(id='my-joystick', label="Zumo Joyst
 
 ########## Callback Functions ##########
 
+# Callback function - Scatter plot (not finished, currently just a straight line)
 @app.callback(dash.dependencies.Output('live-graph', 'figure'),
               dash.dependencies.Input('graph-update', 'n_intervals'))
 
@@ -62,11 +72,12 @@ def update_graph_scatter(n):
             'layout': go.Layout(xaxis=dict(range=[min(X), max(X)]),
                                 yaxis=dict(range=[min(Y), max(Y)]))}
 
+# Callback function - Barchart
 @app.callback(dash.dependencies.Output('live-barchart', 'figure'),
               [dash.dependencies.Input('barchart-update', 'n_intervals')])
 
 def update_graph_bar(n):
-  clrs = []
+  clrs = list()
   colorred = 'rgb(222,0,0)'
   colorgreen = 'rgb(0,222,0)'
   for i in range(len(line_sensor_values)):
@@ -81,6 +92,7 @@ def update_graph_bar(n):
   if traces is not None and layout is not None:
     return {'data': traces, 'layout': layout}
 
+# Callback function - Mode button clicks
 @app.callback(dash.dependencies.Output('Button output', 'children'),
               [dash.dependencies.Input('auto_button', 'n_clicks'),
               dash.dependencies.Input('manual_button', 'n_clicks')])
@@ -100,6 +112,7 @@ def displayClick(auto_button, manual_button):
 
     return html.Div(msg)
 
+# Callback function - Joystick
 @app.callback(
     dash.dependencies.Output('joystick-output', 'children'),
     [dash.dependencies.Input('my-joystick', 'angle'),
@@ -124,7 +137,7 @@ def update_output(angle, force=0):
             html.Br(),
             'Force is {}'.format(zumoSpeed)]
 
-# This function is the entry point of the transmit thread
+# Entry point of the transmit thread
 def TransmitThread():
   print ("transmitThread")
   global control_params, clockwise_arr, counter_clockwise_arr
@@ -141,11 +154,11 @@ def TransmitThread():
     else:
       direction = '1'
     msg = ''
-    msg = str(auto_flag) + ';' + direction + '.' + str(joyX) + ',' +str(joyY) +'\r\n'
+    msg = str(auto_flag) + ';' + direction + '.' + str(joyX) + ',' +str(joyY) + '\r\n'
     ser.write(msg.encode('ascii'))
     time.sleep(0.1)
 
-# This function is the entry point of the receive thread
+# Entry point of the receive thread
 def ReceiveThread():
   global line_sensor_values, clockwise_arr, counter_clockwise_arr, counter
   while(ser.isOpen):
@@ -161,11 +174,9 @@ def ReceiveThread():
     else:
       time.sleep(0.05)
 
-# Run the app
-#if __name__ == '__main__':
-    #app.run_server(debug=True, host='0.0.0.0')
+# Entry point of the app thread
 def start_app():
-  #app.run_server(debug=True)
+  #app.run_server(debug=True, host='0.0.0.0')
   app.server.run(port=8050, host='0.0.0.0')
 
 def initializeThreads():
