@@ -39,7 +39,7 @@ auto_flag = 0
 
 ########## Serial Connection ##########
 
-#ser = serial.Serial('/dev/ttyACM0')  # open serial port
+ser = serial.Serial('/dev/ttyACM0')  # open serial port
 #ser = serial.Serial('COM3', baudrate = 9600, timeout = 1)
 
 # App Initialization and definition
