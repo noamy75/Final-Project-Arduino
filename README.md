@@ -1,10 +1,15 @@
-# Final Project - Arduino Robot
+# Final Project - Line Follower Robot
 
-The robot is composed of a RaspberryPi (master), an arduino (slave), engines, wheels and several kinds of sensors.
+The robot is composed of a RaspberryPi, an arduino, motors, wheels and several kinds of sensors.
 
 The project consists of two programs: an arduino sketch that runs on the arduino controller and a python script that runs on the RaspberryPi.
 
-**Video demonstration:** The robot starts in manual mode and gets driven to the line. Then, the user switches to automatic mode which makes the robot calibrating and starting a ride following the black line on the ground. On the left there's a dynamic barchart showing the line sensors readings.
+**Video - Auto mode control:** Driving in auto mode, applying changes of speed and proportional gain (Kp) via sliders, examining effects on the line position plot and line sensors values bar chart.
+
+https://user-images.githubusercontent.com/96314781/158193784-7cf57be2-ac55-4888-a2b4-42638e2c5b0a.mp4
+
+
+**Video - basic operations:** The robot starts in manual mode and gets driven to the line. Then, the user switches to automatic mode which makes the robot calibrating and starting a ride following the black line on the ground. On the left there's a dynamic barchart showing the line sensors readings.
 
 https://user-images.githubusercontent.com/96314781/150839280-9746bab1-2845-4fed-819e-54ee128ef291.mp4
 
