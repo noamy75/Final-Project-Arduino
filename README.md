@@ -3,11 +3,19 @@
 A Line Follower Robot (LFR) is one of the most important concepts in robotics. 
 In this project we developed a platform that enables controlling the robot in 2 operating modes: A manual mode for robot maneuvering using joystick, and an automatic mode where the LFR comes into picture. The platform is controlled by the user with HTML-based GUI, where the LFR performance can be evaluated by several criteria.
 
-Line identification is done using an array of five light reflecting sensors. Each sensor returns a value in the range [0-1000] that represents the amount of black it sees. It is common practice to use a formula where the sensors values are linearly weighted.
+Line identification is done using an array of five light reflecting sensors that are located as shown below:
+
+![image](https://user-images.githubusercontent.com/96314781/178270556-41afa49d-075d-4b55-a442-c2c425a97d97.png)
+  
+Each sensor returns a value in the range [0-1000] that represents the amount of black it sees. It is common practice to use a formula where the sensors values are linearly weighted.
 
 ![image](https://user-images.githubusercontent.com/96314781/165382113-eb04646c-03de-488d-b368-f5290714e6a7.png)
 
-In order to evaluate the line position more accurately, each sensor value can be proportionally weighted according to its real location. In this project, both methods were implemented.
+In order to evaluate the line position more accurately, each sensor value can be proportionally weighted according to its real location.
+
+![image](https://user-images.githubusercontent.com/96314781/178271249-0aba89a6-9114-4158-bb03-f52beeb7de7f.png)
+
+In this project, both methods were implemented.
 
 The LFR consists of a Raspberry Pi and a Zumo 32U4 robot, connected by USB. The RPi runs an HTML-based GUI (Python) and communicates with the Zumo, that runs an Arduino sketch.
 
