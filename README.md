@@ -15,6 +15,9 @@ The LFR consists of a Raspberry Pi and a Zumo 32U4 robot, connected by USB. The 
 
 ![image](https://user-images.githubusercontent.com/96314781/165382549-6e67362b-b6bc-4c03-8180-78c1348d3159.png)
 
+The PID controller produces speedDifference using the formula:
+![image](https://user-images.githubusercontent.com/96314781/178268828-01d894d0-3389-4277-adbf-2c49f6d4e584.png)
+
 Three parameters were defined to evaluate the performance:
 Average – average of line position samples.
 SD – standard deviation of the samples.
